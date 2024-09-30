@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: [
@@ -9,11 +9,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: '#131117',
+        darker: '#5C5470',
+        mid: '#B9B4C7',
+        foreground: '#FAF0E6',
       },
     },
   },
   plugins: [],
 };
+
 export default config;
