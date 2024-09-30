@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Project
 
-## Getting Started
+This is a Next.js project developed with TypeScript and built using the create-next-app template. This project includes an About Me page, an API page utilizing a third-party API, and a contact form that integrates with a simple mock API.
+Getting Started
 
-First, run the development server:
+To run the development server:
 
-```bash
+```
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 in your browser to view the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+Running the Project
 
-To learn more about Next.js, take a look at the following resources:
+Clone the repository.
+Run npm install
+Run the development server using
+```
+npm run dev
+``` 
+Visit http://localhost:3000 in your browser to explore the app.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
+```
+/src
+   /app                 --> App directory for Next.js routing
+      /about
+         /page.tsx      --> About Me page
+      /api
+         /page.tsx      --> API page fetching third-party data
+   /components
+      /ContactForm.tsx  --> Contact form component
+      /Layout.tsx       --> Layout component for navigation
+   /styles
+      /about.module.css --> CSS Module for About Me page
+      /api.module.css   --> CSS Module for API page
+   /api
+      /contact/route.ts --> API route for contact form submission
+/public                 --> Public assets like images
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project uses TypeScript to improve code quality and maintainability. You can find the TypeScript configuration in tsconfig.json. All components and API routes are written in TypeScript, ensuring strong typing across the project.
 
-## Deploy on Vercel
+## Why?
+This is for my nexts training I am working on for CGI, written by Lucas Lamar (Consultant)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+To be reviewed by John Whaley
