@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { sourceSans3 } from "@/public/fonts"
+import { sourceSans3 } from "../../public/fonts"
+import TopNav from "@/components/TopNav";
+
 
 export const metadata: Metadata = {
   title: "NextJS Training",
@@ -17,6 +19,7 @@ export default function RootLayout({
       <body
         className={`${sourceSans3.className} bg-background text-foreground`}
       >
+        <TopNav></TopNav>
         {children}
       </body>
     </html>
