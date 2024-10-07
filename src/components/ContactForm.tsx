@@ -11,7 +11,7 @@ export default function ContactForm() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
+
         try {
             const res = await fetch('/api/sendMessage', {
                 method: 'POST',
@@ -42,13 +42,13 @@ export default function ContactForm() {
     };
 
     return (
-        <div>
-            <h1 className="text-center text-5xl">
+        <div className="relative w-96 m-auto">
+            <h1 className="text-center text-5xl mb-5">
                 Contact Me
             </h1>
 
-            {!isSubmitted ? (
-                <form className="flex flex-col w-96 space-y-2" onSubmit={handleSubmit}>
+            <div className={`flex flex-col w-full space-y-2 ${isSubmitted ? 'opacity-50' : 'opacity-100'}`}>
+                <form className="flex flex-col w-full" onSubmit={handleSubmit}>
                     <div className="w-full flex flex-col">
                         <label htmlFor="name">Name:</label>
                         <input
@@ -85,7 +85,6 @@ export default function ContactForm() {
                         <button type="submit" className="text-xl w-56 font-bold hover:bg-foreground hover:text-background text-foreground bg-darker p-2 rounded-md transition-colors duration-300">
                             Send
                         </button>
-                        {/* Moved Reset button into the same container */}
                         <button
                             type="button"
                             onClick={handleResetForm}
@@ -94,18 +93,11 @@ export default function ContactForm() {
                         </button>
                     </div>
                 </form>
-            ) : (
-                <div className="text-center py-5">
-                    <p className="text-2xl font-semibold">{responseMessage}</p>
-                    {/* Centered Reset button when form is submitted */}
-                    <div className="flex flex-col m-auto space-y-3 py-3">
-                        <button
-                            type="button"
-                            onClick={handleResetForm}
-                            className="text-xl w-56 font-bold hover:bg-foreground hover:text-background text-foreground bg-darker p-2 rounded-md transition-colors duration-300">
-                            Reset Form
-                        </button>
-                    </div>
+            </div>
+
+            {isSubmitted && (
+                <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <p className="text-4xl font-bold text-white">Sent</p>
                 </div>
             )}
         </div>
