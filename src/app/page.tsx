@@ -30,11 +30,8 @@ export default function Home() {
       </div>
       {/* Image */}
 
-      <div className="m-auto">
+      <div className="m-auto mt-11">
         {/* Contact Form below the image and about section */}
-        <h1 className="text-5xl basis-1/2 mt-11">
-                  Contact me
-        </h1>
         <ContactForm></ContactForm>
       </div>
     </main>
