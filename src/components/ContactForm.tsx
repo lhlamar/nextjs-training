@@ -2,6 +2,11 @@
 
 import { useState } from "react";
 import { CheckIcon } from '@heroicons/react/solid';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from "react-hook-form";
+import { SubmitHandler } from "react-hook-form";
+import * as z from "zod";
+import { contactFormSchema } from "../zod_schema/contactForm";
 
 export default function ContactForm() {
     const [name, setName] = useState('');
@@ -9,32 +14,36 @@ export default function ContactForm() {
     const [message, setMessage] = useState('');
     const [responseMessage, setResponseMessage] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<ContactFormData>({
+        resolver: zodResolver(contactFormSchema),
+    });
+    type ContactFormData = z.infer<typeof contactFormSchema>;
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-
+    const onSubmit: SubmitHandler<ContactFormData> = async(data) => {
         try {
             const res = await fetch('/api/sendMessage', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ name, email, message }),
+                body: JSON.stringify(data),
             });
 
             if (res.ok) {
-                const data = await res.json();
-                setResponseMessage(data.status);
+                const responseData = await res.json();
+                setResponseMessage(responseData.status);
                 setIsSubmitted(true);
             } else {
-                setResponseMessage('Failed to send');
+                setResponseMessage('Failed to Send');
             }
-        } catch (error) {
+        }
+        catch (error) {
             setResponseMessage(`An error occurred: ${error}`);
         }
     };
 
     const handleResetForm = () => {
+        reset();
         setName('');
         setEmail('');
         setMessage('');
@@ -43,13 +52,13 @@ export default function ContactForm() {
     };
 
     return (
-        <div className="relative w-96 m-auto">
+        <div className="w-96 min-h-screen">
             <h1 className="text-center text-5xl mb-5">
                 Contact Me
             </h1>
     
             <div className="flex flex-col w-full space-y-2">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     {/* Relative container to limit the "Sent" overlay area */}
                     <div className="relative">
                         {/* Input container that will blur when submitted */}
@@ -61,9 +70,11 @@ export default function ContactForm() {
                                     type="text"
                                     placeholder="Name"
                                     value={name}
+                                    {...register("name")}
                                     onChange={(e) => setName(e.target.value)}
                                     className="bg-darker placeholder:text-foreground placeholder:text-lg rounded-md p-3"
                                 />
+                                {errors.name && <p className="text-red-500">{typeof errors.name?.message === 'string' ? errors.name.message : ''}</p>}
                             </div>
                             <div className="flex flex-col">
                                 <label htmlFor="emails">Email:</label>
@@ -72,19 +83,23 @@ export default function ContactForm() {
                                     type="email"
                                     placeholder="Email@example.com"
                                     value={email}
+                                    {...register("email")}
                                     onChange={(e) => setEmail(e.target.value)}
                                     className="bg-darker placeholder:text-foreground placeholder:text-lg rounded-md p-3"
                                 />
+                                {errors.email && <p className="text-red-500">{typeof errors.email?.message === 'string' ? errors.email.message: ''}</p>}
                             </div>
                             <div className="flex flex-col">
                                 <label htmlFor="message">Message:</label>
                                 <textarea
                                     id="message"
                                     value={message}
+                                    {...register("message")}
                                     onChange={(e) => setMessage(e.target.value)}
                                     className="bg-darker placeholder:text-foreground placeholder:text-lg rounded-md p-3"
                                     placeholder="Message.."
                                 />
+                                {errors.message && <p className="text-red-500">{typeof errors.message?.message === 'string' ? errors.message.message: ''}</p>}
                             </div>
                         </div>
     
@@ -93,7 +108,7 @@ export default function ContactForm() {
                             <div className="absolute inset-0 flex items-center justify-center">
                                 <div className="flex flex-row bg-background p-6 rounded-md border-emerald-600 border-2">
                                     <h1 className="text-foreground text-4xl font-bold">
-                                        Sent
+                                        {responseMessage}
                                     </h1>
                                     <CheckIcon className="h-auto w-10 text-emerald-500"></CheckIcon>
                                 </div>

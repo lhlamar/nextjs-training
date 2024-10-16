@@ -3,7 +3,7 @@ import ContactForm from "@/components/ContactForm";
 
 export default function Home() {
   return (
-    <main className="mt-11 flex flex-col p-4 justify-end">
+    <main className="mt-20 flex flex-col p-4 justify-end">
       {/* Container for the image and the about section */}
 
       <div className="flex flex-row mx-auto">
@@ -11,14 +11,14 @@ export default function Home() {
           <Image
             src="/hero.jpeg"
             alt="image missing"
+            className="object-cover w-full h-auto min-w-[350px] min-h-[300px]"
             height={300}
             width={350}
-            style={{ objectFit: "cover" }}
           />
         </div>
 
         {/* About Section */}
-        <div id="about" className="max-w-lg">
+        <div id="about" className="max-w-lg ml-5">
           <h1 className="text-5xl font-bold text-center mb-4">About</h1>
           <p className="text-center text-wrap text-lg">
             &nbsp;&nbsp;&nbsp;&nbsp;My name is Lucas Lamar, I went to Auburn University and graduated with a bachelor's degree
@@ -28,9 +28,11 @@ export default function Home() {
           </p>
         </div>
       </div>
-      {/* Image */}
 
-      <div className="m-auto mt-11">
+      <hr id="contact" className="border-t border-gray-300 my-20" />
+
+
+      <div className="m-auto">
         {/* Contact Form below the image and about section */}
         <ContactForm></ContactForm>
       </div>

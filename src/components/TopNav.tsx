@@ -12,7 +12,7 @@ const TopNav = () => {
           </li>
           <li>
             <a
-              href="/"
+              href="#contact"
               className="hover:bg-foreground hover:text-background text-foreground p-2 rounded-md transition-colors duration-300"
             >
               Contact
