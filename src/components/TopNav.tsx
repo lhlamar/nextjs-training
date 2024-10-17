@@ -1,6 +1,6 @@
 const TopNav = () => {
     return (
-      <nav className="p-4">
+      <nav className="fixed top-0 left-0 w-full z-10 p-4">
         <ul className="hidden md:flex space-x-6">
           <li>
             <a
@@ -20,10 +20,10 @@ const TopNav = () => {
           </li>
           <li>
             <a
-              href="/"
+              href="/spotify-stats"
               className="hover:bg-foreground hover:text-background text-foreground p-2 rounded-md transition-colors duration-300"
             >
-              API
+              Spotify Stats
             </a>
           </li>
         </ul>

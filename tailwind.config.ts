@@ -14,6 +14,9 @@ const config: Config = {
         mid: '#B9B4C7',
         foreground: '#FAF0E6',
       },
+      minHeight: {
+        'screen-minus-16': 'calc(100vh - 12rem)',
+      }
     },
   },
   plugins: [],

@@ -52,7 +52,7 @@ export default function ContactForm() {
     };
 
     return (
-        <div className="w-96 min-h-screen">
+        <div className="w-96">
             <h1 className="text-center text-5xl mb-5">
                 Contact Me
             </h1>
