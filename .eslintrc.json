@@ -4,6 +4,6 @@
   "rules": {
   "jsx-quotes": ["off"], // Disable enforcing the use of specific quote styles in JSX
   "quotes": ["error", "single", { "avoidEscape": true }] // Allow single quotes without needing to escape them
-
+  }
   
 }
