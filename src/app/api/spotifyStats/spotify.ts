@@ -1,6 +1,6 @@
 // /src/app/api/spotifyStats/lib/spotify.ts
 
-const getAccessToken = async (): Promise<{ access_token: string }> => {
+export const getAccessToken = async (): Promise<{ access_token: string }> => {
     const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN as string;
   
     const response = await fetch("https://accounts.spotify.com/api/token", {
@@ -18,7 +18,7 @@ const getAccessToken = async (): Promise<{ access_token: string }> => {
     });
   
     if (!response.ok) {
-      throw new Error(`Failed to fetch access token: ${response.statusText}`);
+      throw new Error(`${response.statusText}`);
     }
   
     return response.json();

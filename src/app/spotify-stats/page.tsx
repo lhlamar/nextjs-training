@@ -12,7 +12,7 @@ export default function SpotifyStats() {
         const result = await response.json();
         setData(JSON.stringify(result, null, 2)); // Converts JSON to a formatted string
       } catch (error) {
-        setData('Error fetching data');
+        setData(`${error}`);
       }
     };
 
@@ -25,7 +25,7 @@ export default function SpotifyStats() {
   return (
     <main>
       <p>
-        <pre>{data}</pre> {/* Wraps the JSON data in <pre> for better formatting */}
+        {data}
         
       </p>
     </main>
