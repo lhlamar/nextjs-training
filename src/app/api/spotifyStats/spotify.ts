@@ -24,7 +24,6 @@ const getAccessToken = async (): Promise<{ access_token: string }> => {
     return response.json();
   };
   
-  export default getAccessToken;
   
 
 export const topTracks = async (): Promise<Response> => {

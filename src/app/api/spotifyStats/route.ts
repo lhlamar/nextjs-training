@@ -2,8 +2,9 @@
 // /src/app/api/spotifyStats/stats/tracks.ts
 
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { topTracks } from './spotify';
+import { topTracks, getAccessToken } from './spotify';
 import { NextResponse } from 'next/server'
+
 
 type Track = {
   title: string;
@@ -38,31 +39,5 @@ export async function GET() {
     return NextResponse.json({ error: 'Failed to fetch tracks' }, { status: 500 });
   }
 }
-
-// /src/app/api/spotifyStats/lib/spotify.ts
-
-const getAccessToken = async (): Promise<{ access_token: string }> => {
-    const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN as string;
-  
-    const response = await fetch("https://accounts.spotify.com/api/token", {
-      method: "POST",
-      headers: {
-        Authorization: `Basic ${Buffer.from(
-          `${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`
-        ).toString("base64")}`,
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: new URLSearchParams({
-        grant_type: "refresh_token",
-        refresh_token,
-      }),
-    });
-  
-    if (!response.ok) {
-      throw new Error(`Failed to fetch access token: ${response.statusText}`);
-    }
-  
-    return response.json();
-  };
   
 export default getAccessToken;

@@ -19,10 +19,14 @@ export default function SpotifyStats() {
     fetchData();
   }, []);
 
+  //what should i put on this page?
+  // my top 5 artists
+
   return (
     <main>
       <p>
         <pre>{data}</pre> {/* Wraps the JSON data in <pre> for better formatting */}
+        
       </p>
     </main>
   );
