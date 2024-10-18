@@ -21,14 +21,14 @@ export async function GET() {
     const response = await topTracks();
     const { items } = await response.json();
 
-    const tracks: Track[] = items.slice(0, 5).map((track: Track) => ({
+    const tracks: Track[] = items.slice(0, 5).map((track: any) => ({
       title: track.name,
-      artist: track.artists.map((artist) => artist.name).join(", "),
+      artist: track.artists.map((artist: any) => artist.name).join(", "),
       url: track.external_urls.spotify,
       coverImage: track.album.images[1],  // Assuming this image object has a url, width, and height
     }));
 
-    return NextResponse.json(tracks, {
+    return NextResponse.json({ topTracks: tracks }, {  // <-- Now returning `topTracks` key
       status: 200,
       headers: {
         "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=43200",
