@@ -1,10 +1,5 @@
-// /app/api/spotifyApi/route.ts
-// /src/app/api/spotifyStats/stats/tracks.ts
-
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { topTracks } from './spotify';
-import { NextResponse } from 'next/server'
-
+import { topTracks, topArtists } from './spotify'; // Import the new functions
+import { NextResponse } from 'next/server';
 
 type Track = {
   name: string;
@@ -15,26 +10,49 @@ type Track = {
   };
 };
 
+type Artist = {
+  name: string;
+  external_urls: { spotify: string };
+  images: { url: string; width: number; height: number }[];
+};
 
 export async function GET() {
   try {
-    const response = await topTracks();
-    const { items } = await response.json();
+    const topTracksResponse = await topTracks();
+    const topArtistsResponse = await topArtists();
 
-    const tracks: Track[] = items.slice(0, 5).map((track: any) => ({
+
+    const { items: topTrackItems } = await topTracksResponse.json();
+    const { items: topArtistItems } = await topArtistsResponse.json();
+
+
+    console.log({
+      topTrackItems,
+      topArtistItems,
+    }); // Log the data returned by the Spotify API
+
+    // Format and return response
+    const tracks = topTrackItems.slice(0, 5).map((track: any) => ({
       title: track.name,
       artist: track.artists.map((artist: any) => artist.name).join(", "),
       url: track.external_urls.spotify,
-      coverImage: track.album.images[1],  // Assuming this image object has a url, width, and height
+      coverImage: track.album.images[1],
     }));
 
-    return NextResponse.json({ topTracks: tracks }, {  // <-- Now returning `topTracks` key
-      status: 200,
-      headers: {
-        "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=43200",
-      },
+    const artists = topArtistItems.slice(0, 5).map((artist: any) => ({
+      name: artist.name,
+      url: artist.external_urls.spotify,
+      image: artist.images[1],
+    }));
+
+
+    return NextResponse.json({
+      topTracks: tracks,
+      topArtists: artists,
     });
   } catch (error) {
+    console.error('API error:', error);
     return NextResponse.json({ error: `${error}` }, { status: 500 });
   }
 }
+

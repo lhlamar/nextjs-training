@@ -22,7 +22,7 @@ export const getAccessToken = async (): Promise<{ access_token: string }> => {
     }
   
     return response.json();
-  };
+};
   
   
 
@@ -41,3 +41,21 @@ export const topTracks = async (): Promise<Response> => {
 
   return response;
 };
+
+export const topArtists = async (): Promise<Response> => {
+    const { access_token } = await getAccessToken();
+  
+    const response = await fetch("https://api.spotify.com/v1/me/top/artists", {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+  
+    if (!response.ok) {
+      throw new Error(`Failed to fetch top artists: ${response.statusText}`);
+    }
+  
+    return response;
+  };
+  
+  

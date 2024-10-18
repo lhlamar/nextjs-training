@@ -1,37 +1,35 @@
-type SongProps = {
-    title: string;
-    artist: string;
+type ArtistProps = {
+    name: string;
     url: string;
-    coverImage: {
+    image: {
       url: string;
       width: number;
       height: number;
     };
   };
   
-  const SongCard: React.FC<SongProps> = ({ title, artist, url, coverImage }) => {
+  const ArtistCard: React.FC<ArtistProps> = ({ name, url, image }) => {
     return (
       <div className="bg-darker shadow-lg rounded-lg overflow-hidden">
         <img
-          src={coverImage.url}
-          alt={title}
+          src={image.url}
+          alt={name}
           className="w-full h-64 object-cover"
         />
         <div className="p-4">
-          <h3 className="text-lg font-semibold text-foreground">{title}</h3>
-          <p className="text-mid">{artist}</p>
+          <h3 className="text-lg font-semibold text-foreground">{name}</h3>
           <a
             href={url}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block mt-4 text-mid hover:text-foreground"
           >
-            Listen on Spotify
+            View on Spotify
           </a>
         </div>
       </div>
     );
   };
   
-  export default SongCard;
+  export default ArtistCard;
   

@@ -3,7 +3,7 @@ import ContactForm from "@/components/ContactForm";
 
 export default function Home() {
   return (
-    <main className="flex flex-col p-4 justify-end">
+    <main id="home" className="flex flex-col p-4 justify-end">
       {/* Container for the image and the about section */}
 
       <div className="flex items-center justify-center min-h-screen">
