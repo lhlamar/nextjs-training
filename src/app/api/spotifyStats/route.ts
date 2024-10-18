@@ -3,6 +3,7 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { topTracks } from './spotify';
+import { NextResponse } from 'next/server'
 
 type Track = {
   title: string;
@@ -15,7 +16,7 @@ type Track = {
   };
 };
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET() {
   try {
     const response = await topTracks();
     const { items } = await response.json();
@@ -27,14 +28,14 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
       coverImage: track.album.images[1],  // Assuming this image object has a url, width, and height
     }));
 
-    res.setHeader(
-      "Cache-Control",
-      "public, s-maxage=86400, stale-while-revalidate=43200"
-    );
-
-    return res.status(200).json(tracks);
+    return NextResponse.json(tracks, {
+      status: 200,
+      headers: {
+        "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=43200",
+      },
+    });
   } catch (error) {
-    return res.status(500).json({ error: 'Failed to fetch tracks' });
+    return NextResponse.json({ error: 'Failed to fetch tracks' }, { status: 500 });
   }
 }
 
@@ -65,19 +66,3 @@ const getAccessToken = async (): Promise<{ access_token: string }> => {
   };
   
 export default getAccessToken;
-
-export const topTracks = async (): Promise<Response> => {
-  const { access_token } = await getAccessToken();
-
-  const response = await fetch("https://api.spotify.com/v1/me/top/tracks", {
-    headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch top tracks: ${response.statusText}`);
-  }
-
-  return response;
-};
