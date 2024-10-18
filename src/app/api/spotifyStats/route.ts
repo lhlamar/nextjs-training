@@ -21,10 +21,9 @@ export async function GET() {
     const topTracksResponse = await topTracks();
     const topArtistsResponse = await topArtists();
 
-
-    const { items: topTrackItems } = await topTracksResponse.json();
-    const { items: topArtistItems } = await topArtistsResponse.json();
-
+    // Type the API response explicitly
+    const { items: topTrackItems }: { items: Track[] } = await topTracksResponse.json();
+    const { items: topArtistItems }: { items: Artist[] } = await topArtistsResponse.json();
 
     console.log({
       topTrackItems,
@@ -32,19 +31,18 @@ export async function GET() {
     }); // Log the data returned by the Spotify API
 
     // Format and return response
-    const tracks = topTrackItems.slice(0, 5).map((track: any) => ({
+    const tracks = topTrackItems.slice(0, 5).map((track: Track) => ({
       title: track.name,
-      artist: track.artists.map((artist: any) => artist.name).join(", "),
+      artist: track.artists.map((artist) => artist.name).join(", "),
       url: track.external_urls.spotify,
-      coverImage: track.album.images[1],
+      coverImage: track.album.images[1]?.url || '', // Safely access coverImage
     }));
 
-    const artists = topArtistItems.slice(0, 5).map((artist: any) => ({
+    const artists = topArtistItems.slice(0, 5).map((artist: Artist) => ({
       name: artist.name,
       url: artist.external_urls.spotify,
-      image: artist.images[1],
+      image: artist.images[1]?.url || '', // Safely access image
     }));
-
 
     return NextResponse.json({
       topTracks: tracks,
@@ -55,4 +53,3 @@ export async function GET() {
     return NextResponse.json({ error: `${error}` }, { status: 500 });
   }
 }
-
