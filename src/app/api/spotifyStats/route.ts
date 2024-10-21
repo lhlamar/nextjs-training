@@ -25,21 +25,15 @@ export async function GET() {
     const { items: topTrackItems } = await topTracksResponse.json();
     const { items: topArtistItems } = await topArtistsResponse.json();
 
-
-    console.log({
-      topTrackItems,
-      topArtistItems,
-    }); // Log the data returned by the Spotify API
-
     // Format and return response
-    const tracks = topTrackItems.slice(0, 5).map((track: any) => ({
+    const tracks = topTrackItems.slice(0, 5).map((track: Track) => ({
       title: track.name,
       artist: track.artists.map((artist: any) => artist.name).join(", "),
       url: track.external_urls.spotify,
       coverImage: track.album.images[1],
     }));
 
-    const artists = topArtistItems.slice(0, 5).map((artist: any) => ({
+    const artists = topArtistItems.slice(0, 5).map((artist: Artist) => ({
       name: artist.name,
       url: artist.external_urls.spotify,
       image: artist.images[1],
