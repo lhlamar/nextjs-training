@@ -12,8 +12,8 @@ type Track = {
 
 type Artist = {
   name: string;
-  external_urls: { spotify: string };
-  images: { url: string; width: number; height: number }[];
+  external_urls?: { spotify: string };
+  images?: { url: string; width: number; height: number }[];
 };
 
 export async function GET() {
@@ -28,17 +28,16 @@ export async function GET() {
     // Format and return response
     const tracks = topTrackItems.slice(0, 5).map((track: Track) => ({
       title: track.name,
-      artist: track.artists.map((artist: any) => artist.name).join(", "),
+      artist: track.artists.map((artist: Artist) => artist.name).join(", "),
       url: track.external_urls.spotify,
       coverImage: track.album.images[1],
     }));
 
     const artists = topArtistItems.slice(0, 5).map((artist: Artist) => ({
       name: artist.name,
-      url: artist.external_urls.spotify,
-      image: artist.images[1],
+      url: artist.external_urls?.spotify ?? `couldn't find`,
+      image: artist.images?.[1] ?? { url: "default-image-url.jpg", width: 0, height: 0 }, // Fallback to a default image
     }));
-
 
     return NextResponse.json({
       topTracks: tracks,

@@ -22,10 +22,10 @@ export default function Home() {
             <div id="about" className="max-w-lg ml-5">
               <h1 className="text-5xl font-bold text-center mb-4">About</h1>
               <p className="text-center text-wrap text-lg">
-                &nbsp;&nbsp;&nbsp;&nbsp;My name is Lucas Lamar, I went to Auburn University and graduated with a bachelor's degree
+                {`My name is Lucas Lamar, I went to Auburn University and graduated with a bachelor's degree
                 in Computer Science. Something cool about me is that I enjoy studying Japanese in my free time. I haven't been doing
                 it for very long, but I have the basic Hiragana and Katakana character sets down, as well as some other basics. I
-                started at CGI on June 3rd, 2024, so I'm still relatively new here.
+                started at CGI on June 3rd, 2024, so I'm still relatively new here.`}
               </p>
             </div>
           </div>

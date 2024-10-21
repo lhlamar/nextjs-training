@@ -41,7 +41,7 @@ export default function SpotifyStats() {
         setTopArtists(result.topArtists);
         setLoading(false);
       } catch (error) {
-        setError('Failed to fetch data');
+        setError(`Error Fetching: ${error}`);
         setLoading(false);
       }
     };
