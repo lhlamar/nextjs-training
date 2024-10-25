@@ -1,3 +1,5 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 import type { Metadata } from "next";
 import "./globals.css";
 import { sourceSans3 } from "../../public/fonts"

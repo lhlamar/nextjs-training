@@ -1,14 +1,6 @@
-type ArtistProps = {
-    name: string;
-    url: string;
-    image: {
-      url: string;
-      width: number;
-      height: number;
-    };
-  };
+import { Artist } from '@/types/spotifyTypes'
   
-  const ArtistCard: React.FC<ArtistProps> = ({ name, url, image }) => {
+  const ArtistCard: React.FC<Artist> = ({ name, url, image }) => {
     return (
       <div className="bg-darker shadow-lg rounded-lg overflow-hidden">
         <img

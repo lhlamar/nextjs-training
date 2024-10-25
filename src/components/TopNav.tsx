@@ -50,7 +50,7 @@ const TopNav = () => {
         </li>
         <li>
           <a
-            href={pathname === '/spotify-stats' ? "#top-tracks" : "/spotify-stats"}
+            href={pathname === '/spotify-stats' ? "#top-tracks-nav" : "/spotify-stats"}
             className="hover:bg-foreground hover:text-background text-foreground p-2 rounded-md transition-colors duration-300"
           >
             Spotify Stats
@@ -59,7 +59,7 @@ const TopNav = () => {
         {pathname=== '/spotify-stats' && (
           <li>
             <a
-              href="#top-artists"
+              href="#top-artists-nav"
               className="hover:bg-foreground hover:text-background text-foreground p-2 rounded-md transition-colors duration-300"
             >
               Top Artists

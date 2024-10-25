@@ -1,15 +1,6 @@
-type SongProps = {
-    title: string;
-    artist: string;
-    url: string;
-    coverImage: {
-      url: string;
-      width: number;
-      height: number;
-    };
-  };
-  
-  const SongCard: React.FC<SongProps> = ({ title, artist, url, coverImage }) => {
+import { Track } from '@/types/spotifyTypes'
+
+  const SongCard: React.FC<Track> = ({ title, artist, url, coverImage }) => {
     return (
       <div className="bg-darker shadow-lg rounded-lg overflow-hidden">
         <img
